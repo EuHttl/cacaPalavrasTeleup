@@ -8,9 +8,12 @@ body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #1a0d2e 0%, #16213e 50%, #0f3460 100%);
     min-height: 100vh;
+    min-height: 100svh; /* Para suporte a viewport dinâmica */
     color: #e0e0e0;
     overflow-x: hidden;
     position: relative;
+    -webkit-overflow-scrolling: touch; /* Para scroll suave no iOS */
+    -webkit-text-size-adjust: 100%; /* Previne zoom automático no iOS */
 }
 
 body::before {
@@ -36,6 +39,8 @@ body::before {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* Homepage */
@@ -852,6 +857,205 @@ header {
     .reset-btn {
         padding: 12px 25px;
         font-size: 1rem;
+    }
+}
+
+/* iPhone 13 e dispositivos similares (390px - 410px) */
+@media (max-width: 410px) and (min-width: 375px) {
+    .container {
+        padding: 8px;
+    }
+    
+    .homepage {
+        padding: 10px 8px;
+        min-height: 100vh;
+        min-height: 100svh;
+    }
+    
+    .homepage-container {
+        gap: 20px;
+        padding: 8px;
+    }
+    
+    .project-info {
+        padding: 12px;
+    }
+    
+    .game-start {
+        padding: 12px;
+    }
+    
+    .teleup-logo {
+        font-size: 2.4rem;
+        letter-spacing: 1px;
+    }
+    
+    .arrow-up {
+        width: 16px;
+        height: 16px;
+        top: -3px;
+        right: 18px;
+    }
+    
+    .project-description h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .project-description > p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+    
+    .features {
+        gap: 15px;
+    }
+    
+    .feature {
+        padding: 14px;
+        gap: 14px;
+        border-radius: 12px;
+    }
+    
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.4rem;
+    }
+    
+    .feature-text h3 {
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+    }
+    
+    .feature-text p {
+        font-size: 0.9rem;
+    }
+    
+    .start-content {
+        padding: 28px 18px;
+        border-radius: 18px;
+    }
+    
+    .start-content h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+    
+    .start-content p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+    
+    .play-btn {
+        padding: 15px 28px;
+        font-size: 1.1rem;
+        gap: 10px;
+        border-radius: 25px;
+    }
+    
+    .play-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* Game Screen iPhone 13 */
+    .title {
+        font-size: 1.6rem;
+        margin-bottom: 18px;
+    }
+    
+    .game-info {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .timer-container, .score-container {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        border-radius: 25px;
+        min-width: 120px;
+    }
+    
+    .timer-label, .score-label {
+        font-size: 0.8rem;
+    }
+    
+    .timer, .score {
+        font-size: 0.95rem;
+    }
+    
+    .game-grid {
+        grid-template-columns: repeat(11, 1fr);
+        padding: 15px;
+        gap: 2px;
+        border-radius: 18px;
+        max-width: 100%;
+        min-width: auto;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+    .grid-cell {
+        font-size: 0.7rem;
+        border-radius: 5px;
+        font-weight: 600;
+        min-height: 28px;
+        width: 100%;
+        max-width: 30px;
+        aspect-ratio: 1;
+        box-sizing: border-box;
+    }
+    
+    .words-list-container {
+        padding: 15px;
+        border-radius: 15px;
+    }
+    
+    .words-list-container h3 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+    
+    .words-list {
+        gap: 8px;
+    }
+    
+    .words-list li {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+        border-radius: 12px;
+    }
+    
+    .reset-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+        border-radius: 20px;
+    }
+    
+    .modal-content {
+        padding: 35px 22px;
+        margin: 15px;
+        border-radius: 20px;
+        max-width: 340px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.7rem;
+        margin-bottom: 18px;
+    }
+    
+    .modal-content p {
+        font-size: 1.1rem;
+        margin-bottom: 28px;
+    }
+    
+    .play-again-btn {
+        padding: 14px 28px;
+        font-size: 1.1rem;
     }
 }
 
