@@ -17,7 +17,7 @@ class WordSearchGame {
         this.wordPositions = {};
         this.foundWords = new Set();
         this.gameStarted = false;
-        this.timeLeft = 300; // 5 minutos em segundos
+        this.timeLeft = 45; // 45 segundos
         this.timer = null;
         this.selectedCells = [];
         this.isSelecting = false;
@@ -77,7 +77,7 @@ class WordSearchGame {
     startGame() {
         this.gameStarted = true;
         this.foundWords.clear();
-        this.timeLeft = 300;
+        this.timeLeft = 45;
         
         // Selecionar palavras aleatórias para esta rodada
         this.selectRandomWords();
@@ -98,7 +98,7 @@ class WordSearchGame {
     resetGame() {
         this.gameStarted = false;
         this.foundWords.clear();
-        this.timeLeft = 300;
+        this.timeLeft = 45;
         this.selectedCells = [];
         this.isSelecting = false;
         
