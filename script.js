@@ -47,9 +47,10 @@ class WordSearchGame {
         this.resetBtn.addEventListener('click', () => this.resetGame());
         this.playAgainBtn.addEventListener('click', () => this.resetGame());
         
-        // Eventos para seleção de palavras
+        // Eventos para seleção de palavras - Mouse
         document.addEventListener('mousedown', (e) => {
             if (e.target.classList.contains('grid-cell') && this.gameStarted) {
+                e.preventDefault();
                 this.startSelection(e.target);
             }
         });
@@ -65,6 +66,45 @@ class WordSearchGame {
                 this.endSelection();
             }
         });
+        
+        // Eventos para seleção de palavras - Touch (Mobile)
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.classList.contains('grid-cell') && this.gameStarted) {
+                e.preventDefault();
+                this.startSelection(e.target);
+            }
+        }, { passive: false });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (this.isSelecting) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const element = document.elementFromPoint(touch.clientX, touch.clientY);
+                if (element && element.classList.contains('grid-cell')) {
+                    this.updateSelection(element);
+                }
+            }
+        }, { passive: false });
+        
+        document.addEventListener('touchend', (e) => {
+            if (this.isSelecting) {
+                e.preventDefault();
+                this.endSelection();
+            }
+        }, { passive: false });
+        
+        // Prevenir comportamentos padrão do touch no grid
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.game-grid')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (e.target.closest('.game-grid')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     }
     
     selectRandomWords() {
