@@ -462,19 +462,19 @@ header {
 
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(15, 1fr);
-    gap: 3px;
+    grid-template-columns: repeat(15, minmax(0, 1fr));
+    gap: clamp(2px, 0.6vw, 6px);
     background: rgba(15, 10, 30, 0.95);
     border: 3px solid rgba(139, 92, 246, 0.4);
-    padding: 30px;
+    padding: clamp(16px, 4vw, 30px);
     border-radius: 25px;
     box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
-    max-width: 800px;
-    min-width: 700px;
+    width: min(92vw, 700px);
     aspect-ratio: 1;
     position: relative;
+    margin: 0 auto;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
     touch-action: none;
@@ -507,7 +507,7 @@ header {
     border: 2px solid rgba(139, 92, 246, 0.2);
     border-radius: 12px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: clamp(0.75rem, 1.6vw, 1.1rem);
     color: #e0e0e0;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -628,8 +628,7 @@ header {
     }
     
     .game-grid {
-        max-width: 700px;
-        min-width: 600px;
+        width: min(88vw, 680px);
     }
 }
 
@@ -649,13 +648,11 @@ header {
     }
     
     .game-grid {
-        max-width: 600px;
-        min-width: 500px;
-        grid-template-columns: repeat(14, 1fr);
+        width: min(90vw, 620px);
     }
     
     .grid-cell {
-        font-size: 1rem;
+        font-size: clamp(0.8rem, 1.5vw, 1rem);
     }
 }
 
@@ -748,15 +745,13 @@ header {
     }
     
     .game-grid {
-        grid-template-columns: repeat(13, 1fr);
-        max-width: 100%;
-        min-width: auto;
-        padding: 20px;
-        gap: 2px;
+        width: 100%;
+        padding: clamp(14px, 4vw, 22px);
+        gap: clamp(1px, 0.5vw, 4px);
     }
     
     .grid-cell {
-        font-size: 0.85rem;
+        font-size: clamp(0.7rem, 2.5vw, 0.9rem);
     }
     
     .words-list-container {
@@ -857,14 +852,12 @@ header {
     }
     
     .game-grid {
-        grid-template-columns: repeat(12, 1fr);
-        padding: 18px;
-        gap: 2px;
+        padding: clamp(12px, 5vw, 20px);
+        gap: clamp(1px, 0.6vw, 3px);
         min-height: 350px;
     }
     
     .grid-cell {
-        font-size: 0.8rem;
         border-radius: 6px;
         min-height: 26px;
     }
@@ -1019,9 +1012,8 @@ header {
     }
     
     .game-grid {
-        grid-template-columns: repeat(11, 1fr);
-        padding: 20px;
-        gap: 2.5px;
+        padding: clamp(16px, 5vw, 24px);
+        gap: clamp(1px, 0.8vw, 3px);
         border-radius: 18px;
         max-width: 100%;
         min-width: auto;
@@ -1032,7 +1024,6 @@ header {
     }
     
     .grid-cell {
-        font-size: 0.8rem;
         border-radius: 6px;
         font-weight: 600;
         min-height: 32px;
@@ -1217,15 +1208,13 @@ header {
     }
     
     .game-grid {
-        grid-template-columns: repeat(10, 1fr);
         padding: 12px;
         gap: 1px;
         border-radius: 15px;
     }
     
     .grid-cell {
-        font-size: 0.65rem;
-        border-radius: 4px;
+        border-radius: 6px;
         font-weight: 600;
     }
     
@@ -1305,12 +1294,7 @@ header {
     }
     
     .game-grid {
-        grid-template-columns: repeat(8, 1fr);
         padding: 10px;
-    }
-    
-    .grid-cell {
-        font-size: 0.6rem;
     }
     
     .title {
@@ -1387,6 +1371,41 @@ footer a:hover::after {
 }
 
 /* Responsividade do Footer */
+
+/* Modo de alto desempenho */
+body.reduced-effects *,
+body.reduced-effects *::before,
+body.reduced-effects *::after {
+    animation: none !important;
+    transition: none !important;
+}
+
+body.reduced-effects .feature,
+body.reduced-effects .start-content,
+body.reduced-effects header,
+body.reduced-effects .words-list-container,
+body.reduced-effects .game-grid,
+body.reduced-effects .modal-content,
+body.reduced-effects footer {
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+body.reduced-effects .grid-cell,
+body.reduced-effects .play-btn,
+body.reduced-effects .reset-btn,
+body.reduced-effects .play-again-btn,
+body.reduced-effects .words-list li,
+body.reduced-effects .feature {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+body.reduced-effects .timer-container,
+body.reduced-effects .score-container {
+    box-shadow: none !important;
+}
+
 @media (max-width: 768px) {
     footer {
         padding: 25px 15px;

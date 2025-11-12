@@ -21,7 +21,9 @@ class WordSearchGame {
         this.timer = null;
         this.selectedCells = [];
         this.isSelecting = false;
+        this.cellElements = [];
         
+        this.optimizeForPerformance();
         this.initializeElements();
         this.bindEvents();
     }
@@ -40,6 +42,18 @@ class WordSearchGame {
         this.modalTitle = document.getElementById('modalTitle');
         this.modalMessage = document.getElementById('modalMessage');
         this.finalScore = document.getElementById('finalScore');
+    }
+
+    optimizeForPerformance() {
+        const prefersReducedMotion = typeof window !== 'undefined' &&
+            typeof window.matchMedia === 'function' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const lowThreadCount = typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 4;
+        const isMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+
+        if (prefersReducedMotion || lowThreadCount || isMobile) {
+            document.body.classList.add('reduced-effects');
+        }
     }
     
     bindEvents() {
@@ -251,8 +265,10 @@ class WordSearchGame {
     
     renderGrid() {
         this.gameGrid.innerHTML = '';
-        
+        this.cellElements = [];
+
         for (let i = 0; i < this.gridSize; i++) {
+            this.cellElements[i] = [];
             for (let j = 0; j < this.gridSize; j++) {
                 const cell = document.createElement('div');
                 cell.className = 'grid-cell';
@@ -260,6 +276,7 @@ class WordSearchGame {
                 cell.dataset.row = i;
                 cell.dataset.col = j;
                 this.gameGrid.appendChild(cell);
+                this.cellElements[i][j] = cell;
             }
         }
     }
@@ -276,6 +293,10 @@ class WordSearchGame {
         if (!this.isSelecting || this.selectedCells.length === 0) return;
         
         const firstCell = this.selectedCells[0];
+        const lastCell = this.selectedCells[this.selectedCells.length - 1];
+
+        if (cell === lastCell) return;
+
         const firstRow = parseInt(firstCell.dataset.row);
         const firstCol = parseInt(firstCell.dataset.col);
         const currentRow = parseInt(cell.dataset.row);
@@ -308,9 +329,7 @@ class WordSearchGame {
                 break;
             }
             
-            const cellElement = document.querySelector(
-                `[data-row="${currentCellRow}"][data-col="${currentCellCol}"]`
-            );
+            const cellElement = this.cellElements[currentCellRow][currentCellCol];
             
             if (cellElement) {
                 cellElement.classList.add('selected');
@@ -354,15 +373,14 @@ class WordSearchGame {
                 cell.classList.remove('selected');
             }
         });
+        this.selectedCells = [];
     }
     
     markWordAsFound(word) {
         const positions = this.wordPositions[word];
         if (positions) {
             positions.forEach(([row, col]) => {
-                const cell = document.querySelector(
-                    `[data-row="${row}"][data-col="${col}"]`
-                );
+                const cell = this.cellElements[row]?.[col];
                 if (cell) {
                     cell.classList.add('found');
                     cell.classList.remove('selected');
